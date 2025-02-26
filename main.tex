@@ -1,0 +1,144 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[french]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{newtxtext,newtxmath} 
+\usepackage{setspace} 
+\usepackage{fancyhdr} 
+\usepackage{lastpage}
+\usepackage[utf8]{inputenc} % Pour l'encodage UTF-8
+
+
+\geometry{top=2.5cm, bottom=2.5cm, left=2.5cm, right=2.5cm}
+
+\linespread{1.5}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rfoot{\thepage/\pageref{LastPage}}
+
+\begin{document}
+
+\begin{titlepage}
+    \centering
+
+
+    \vfill  
+    \centering
+    \includegraphics[width=4cm]{img/logoCASC.png} 
+
+    {\Huge \textbf{Cahier des charges pour le tableau de bord GLPI} \par}
+
+    \vspace{2cm}
+
+    \vspace{2cm} 
+
+    {\Large \textbf{Cahier des charges} \par}
+    \vspace{0.5cm}
+    {\large \textbf{Salvo Luka} \par}
+
+    \vfill 
+
+
+    {\large CASC \par}
+    {\large Service Informatique \par}
+    {\large 2025 \par}
+
+    \vspace{1.5cm}
+
+
+    {\large \today}
+\end{titlepage}
+
+
+\newpage
+\null
+\tableofcontents
+\newpage
+
+
+\section{Introduction}
+\subsection{Contexte}
+Le projet consiste à développer un système de gestion de tickets intégré à une base de données Microsoft Access. Ce système permettra de suivre et d'analyser les tickets en fonction de différentes entités (CASC, COMMUN, VILLE, ECOLE).
+
+
+\subsection{Objectif}
+
+\noindent  --> Créer un formulaire interactif pour la saisie des critères de recherche (mois, année). \\
+\noindent  --> Exécuter des requêtes pour extraire et analyser les données des tickets.\\
+\noindent  --> Stocker les résultats des requêtes dans une table de stockage. \\ 
+\noindent  --> Générer des graphiques basés sur les données stockées. \\
+\noindent  --> Permettre l'exportation des résultats vers Excel.
+
+
+\section{Exigences fonctionnelles}
+\subsection{Formulaire de saisie}
+Le formulaire de saisie doit permettre à l'utilisateur de sélectionner les critères de recherche (mois, année) pour extraire les données des tickets. Les critères de recherche doivent être validés avant l'exécution de la requête.
+La saisie du mois peut etre optionnel , alors toutes les requêtes seront renvoyés par année.
+
+
+\subsection{Requêtes SQL}
+Les requêtes SQL doivent être exécutées pour extraire les données des tickets en fonction des critères de recherche. Les requêtes doivent être validées avant l'exécution. Les résultats des requêtes doivent être stockés dans une table de stockage qu'on nommera \textbf{TableStockageResultats}.
+Chaque requête a un id différent dans cette table de sorte a pouvoir les identifier facilement. \\
+Les requêtes doivent être exécutées en fonction des critères de recherche (mois, année) sélectionnés par l'utilisateur.\\
+\newline
+\newline
+Les requêtes peuvent extraire les données suivantes pour chaque entités (CASC / VILLE / ECOLE / COMMUN): \\
+\noindent --> Pourcentage de tickets clos en moins de 4heures / 24heures / 7jours / + de 7 jours. \\
+\noindent --> Nombre de tickets ouverts / fermés par mois / année. \\
+\noindent --> Nombre de tickets non classés par mois / année. \\
+\noindent --> Pourcentage de demandes ouvertes par mois / année. \\
+\noindent --> Pourcentage d'incidents ouverts par mois / année. \\
+\noindent --> Nombre de demandes ouvertes par mois / année. \\
+\noindent --> Nombre d'incidents ouverts par mois / année. \\
+
+
+\subsection{Table de stockage}
+
+La table de stockage \textbf{TableStockageResultats} doit stocker les résultats des requêtes SQL. Les résultats doivent être stockés en fonction de l'id de la requête. La table doit être mise à jour à chaque exécution de requête. Les résultats stockés doivent être utilisés pour générer des graphiques.
+La table \textbf{TableStockageResultats} doit contenir les colonnes suivantes: \\
+\noindent --> \texttt{id\_requete} (int) : identifiant de la requête.
+\noindent --> mois (int) : mois de la requête. \\
+\noindent --> année (int) : année de la requête. \\
+\noindent --> entité (varchar) : entité de la requête (CASC / VILLE / ECOLE / COMMUN). \\
+\noindent --> resultats (int) : valeur du résultat. \\
+\noindent \texttt{id\_requete} est la clé primaire de la table , c'est à dire que c'est un identifiant unique pour chaque requête.
+
+
+
+\subsection{Génération de graphiques}
+Le type de graphique idéal pour les pourcentages serait un graphique en secteur, chaque part représente une entité. \\
+Le type de graphique idéal pour les nombres serait un graphique en barres, chaque barre représentant alors aussi une entité. \\
+
+
+\section{Exigences Techniques}
+\subsection{Environnement}
+Le projet sera effectué sur Microsoft Access 2016. Le langage de programmation utilisé sera SQL pour les requêtes et VBA pour les formulaires, les macros , les scripts ainsi que les graphiques.
+
+
+\subsection{Sécurité}
+Le formulaire doit pouvoir sauvegarder les données renvoyés dans la table \textbf{TableStockageResultats} en cas de fermeture du formulaire. \\
+Les données doivent être sauvegarder de manière régulière pour éviter toute perte de données. \\
+
+
+\section{Plan de travail}
+
+\subsection{Phases du projets}
+Le projet sera divisé en plusieurs phases: \\
+\noindent \textbf{Phase 1} : Analyse des Besoins : Collecte des exigences et validation. \\
+\noindent \textbf{Phase 2} : Conception : Conception du formulaire, des requêtes et de la table de stockage. \\
+\noindent \textbf{Phase 3} : Développement : Implémentation des fonctionnalités. \\
+\noindent \textbf{Phase 4} : Tests : Des tests seront effectué de sorte à ce qu'on puisse s'assurer que le tableau de bord fonctionne correctement. \\
+\noindent \textbf{Phase 5} : Déploiement : Le tableau de bord pourra être utilisé par le chef du service. \\
+
+
+
+\section{Conclusion}
+
+Ce cahier des charges décrit les exigences et les spécifications pour le développement d'un système de gestion de tickets intégré à une base de données Microsoft Access. Il servira de guide pour le développement et la mise en œuvre du projet.
+
+
+\end{document}
